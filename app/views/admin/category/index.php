@@ -1,6 +1,7 @@
 <?php require_once APPROOT . '/views/inc/admin/header.php'; ?>
 <?php require_once APPROOT . '/views/inc/admin/sidebar.php'; ?>
 <?php require_once APPROOT . '/views/inc/admin/navbar.php'; ?>
+
 <div class="wrapper d-flex align-items-stretch">
     <div id="content" class="p-4 p-md-5">
         <div class="container">
@@ -19,17 +20,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($data['categories'] as $category) { ?>
-                    <tr>
-                        <td><?php echo $category['id']; ?></td>
-                        <td><?php echo $category['name']; ?></td>
-                        <td><?php echo $category['description']; ?></td>
-                        <td>
-                            <a href="<?php echo URLROOT; ?>/CategoryController/edit/<?php echo $category['id']; ?>" class="btn btn-primary">Edit</a>
-                            <a href="<?php echo URLROOT; ?>/CategoryController/destroy/<?php echo base64_encode($category['id']); ?>" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    <?php } ?>
+                    <?php foreach ($data['categories'] as $category): ?>
+                        <tr>
+                            <td><?php echo $category['id']; ?></td>
+                            <td><?php echo $category['name']; ?></td>
+                            <td><?php echo $category['description']; ?></td>
+                            <td>
+                                <a href="<?php echo URLROOT; ?>/CategoryController/edit/<?php echo $category['id']; ?>" class="btn btn-primary">Edit</a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal_<?php echo $category['id']; ?>">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
             <div class="clearfix">
@@ -46,4 +49,28 @@
         </div>
     </div>
 </div>
+
+<!-- Example modal in a loop -->
+<?php foreach ($data['categories'] as $category): ?>
+    <div class="modal fade" id="deleteModal_<?php echo $category['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_<?php echo $category['id']; ?>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning" id="deleteModalLabel_<?php echo $category['id']; ?>">Warning!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <?php echo $category['name']; ?>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="<?php echo URLROOT; ?>/CategoryController/destroy/<?php echo base64_encode($category['id']); ?>" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
 <?php require_once APPROOT . '/views/inc/admin/footer.php'; ?>

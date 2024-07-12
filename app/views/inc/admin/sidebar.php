@@ -84,8 +84,8 @@
     </a>
     <div id="collapseSponsor" class="collapse" aria-labelledby="headingSponsor" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo URLROOT; ?>/admin/event">View All</a>
-            <a class="collapse-item" href="<?php echo URLROOT; ?>/admin/event/create">Add Sponsor</a>
+            <a class="collapse-item" href="<?php echo URLROOT; ?>/EventSponsorController/index">View All</a>
+            <a class="collapse-item" href="<?php echo URLROOT; ?>/EventSponsorController/create">Add Sponsor</a>
         </div>
     </div>
 </li>

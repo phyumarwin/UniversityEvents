@@ -37,7 +37,10 @@
                             <td><?php echo isset($event['date']) ? $event['date'] : ''; ?></td>
                             <td>
                                 <a href="<?php echo URLROOT; ?>/EventController/edit/<?php echo isset($event['id']) ? $event['id'] : ''; ?>" class="btn btn-primary">Edit</a>
-                                <a href="<?php echo URLROOT; ?>/EventController/destroy/<?php echo isset($event['id']) ? base64_encode($event['id']) : ''; ?>" class="btn btn-danger">Delete</a>
+                                <!-- <a href="<?php echo URLROOT; ?>/EventController/destroy/<?php echo isset($event['id']) ? base64_encode($event['id']) : ''; ?>" class="btn btn-danger">Delete</a> -->
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal_<?php echo $event['id']; ?>">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     <?php } ?>
@@ -58,4 +61,26 @@
     </div>
 </div>
 
+<!-- Example modal in a loop -->
+<?php foreach ($data['events'] as $event): ?>
+    <div class="modal fade" id="deleteModal_<?php echo $event['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_<?php echo $event['id']; ?>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning" id="deleteModalLabel_<?php echo $event['id']; ?>">Warning!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <?php echo $event['name']; ?>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="<?php echo URLROOT; ?>/EventController/destroy/<?php echo base64_encode($event['id']); ?>" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
 <?php require_once APPROOT . '/views/inc/admin/footer.php'; ?>

@@ -23,29 +23,28 @@ class ImageController extends Controller
     }
 
     public function create()
-    {
-        // Fetch events or necessary data to populate your image creation form
-        $events = $this->db->readAll('events'); // Example: Fetch events for dropdown
-        
-        $data = [
-            'events' => $events
-        ];
+{
+    // Retrieve all events
+    $events = $this->db->readAll('events'); 
+    
+    $data = [
+        'events' => $events
+    ];
 
-        // Load the view to create a new image
-        $this->view('admin/image/create', $data);
-    }
+    // Load the view with events data
+    $this->view('admin/image/create', $data);
+}
 
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Retrieve form data
             $event_id = $_POST['event_id']; // Retrieve event_id from form
-            $upload_url = $_POST['upload_url']; // Retrieve upload_url from form
+            $upload_url = $_POST['upload_url']; 
             
             $data = [
                 'event_id' => $event_id,
                 'upload_url' => $upload_url
-                // Add other columns as needed
             ];
 
             // Insert the image data into the Images table

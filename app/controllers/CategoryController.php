@@ -95,6 +95,9 @@ class CategoryController extends Controller
         // Decode the ID
         $id = base64_decode($id);
 
+        // echo $id;
+        // exit;
+
         // Ensure the ID is valid
         if ($id && is_numeric($id)) {
             // Create a new CategoryModel instance and set its ID
