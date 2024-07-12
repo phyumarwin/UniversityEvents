@@ -1,0 +1,66 @@
+<?php
+
+class ImageController extends Controller
+{
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new Database(); 
+    }
+
+    public function index()
+    {
+        $images = $this->db->readAll('images'); 
+        
+        // Prepare data to be passed to the view
+        $data = [
+            'images' => $images
+        ];
+
+        // Load the view to display the images
+        $this->view('admin/image/index', $data);
+    }
+
+    public function create()
+    {
+        // Fetch events or necessary data to populate your image creation form
+        $events = $this->db->readAll('events'); // Example: Fetch events for dropdown
+        
+        $data = [
+            'events' => $events
+        ];
+
+        // Load the view to create a new image
+        $this->view('admin/image/create', $data);
+    }
+
+    public function store()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Retrieve form data
+            $event_id = $_POST['event_id']; // Retrieve event_id from form
+            $upload_url = $_POST['upload_url']; // Retrieve upload_url from form
+            
+            $data = [
+                'event_id' => $event_id,
+                'upload_url' => $upload_url
+                // Add other columns as needed
+            ];
+
+            // Insert the image data into the Images table
+            $imageInserted = $this->db->create('images', $data);
+
+            if ($imageInserted) {
+                setMessage('success', 'Image inserted successfully!');
+            } else {
+                setMessage('danger', 'Failed to insert image.');
+            }
+
+            // Redirect to index page or appropriate view
+            redirect('ImageController/index');
+        }
+    }
+
+}
+?>
