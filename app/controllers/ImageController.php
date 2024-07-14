@@ -6,60 +6,99 @@ class ImageController extends Controller
 
     public function __construct()
     {
-        $this->db = new Database(); 
+        $this->db = new Database();
     }
 
     public function index()
     {
-        $images = $this->db->readAll('images'); 
+        $images = $this->db->readAll('vw_events_images');
         
-        // Prepare data to be passed to the view
+    //     echo '<pre>';
+    // print_r($images);
+    // echo '</pre>';
+    // die();
         $data = [
             'images' => $images
         ];
 
-        // Load the view to display the images
         $this->view('admin/image/index', $data);
     }
 
     public function create()
-{
-    // Retrieve all events
-    $events = $this->db->readAll('events'); 
-    
-    $data = [
-        'events' => $events
-    ];
+    {
+        $events = $this->db->readAll('events');
+        
+        $data = [
+            'events' => $events,
+            'index' => 'images'
+        ];
 
-    // Load the view with events data
-    $this->view('admin/image/create', $data);
-}
+        $this->view('admin/image/create', $data);
+    }
 
     public function store()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Retrieve form data
-            $event_id = $_POST['event_id']; // Retrieve event_id from form
-            $upload_url = $_POST['upload_url']; 
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $fileName = $_FILES["image"]["name"];
+            $fileSize = $_FILES["image"]["size"];
+            $tmpName = $_FILES["image"]["tmp_name"];
+
+            $validImageExtension = ['jpg', 'jpeg', 'png'];
+            $imageExtension = explode('.', $fileName);
+            $imageExtension = strtolower(end($imageExtension));
             
-            $data = [
-                'event_id' => $event_id,
-                'upload_url' => $upload_url
-            ];
-
-            // Insert the image data into the Images table
-            $imageInserted = $this->db->create('images', $data);
-
-            if ($imageInserted) {
-                setMessage('success', 'Image inserted successfully!');
-            } else {
-                setMessage('danger', 'Failed to insert image.');
+            if (!in_array($imageExtension, $validImageExtension))
+            {
+                setMessage('danger', 'Invalid image extension.');
+                redirect('ImageController/create');
             }
+            else if ($fileSize > 1000000)
+            {
+                setMessage('danger', 'Image size is too large!');
+                redirect('ImageController/create');
+            }
+            else
+            {
+                $newImageName = uniqid() . '.' . $imageExtension;
+                $uploadPath = 'images/' . $newImageName;
 
-            // Redirect to index page or appropriate view
-            redirect('ImageController/index');
-        }
+                if (move_uploaded_file($tmpName, $uploadPath))
+{
+    $event_id = $_POST['event_id'];
+    $upload_url = $uploadPath;
+    
+    $imageModel = $this->model('ImageModel');
+    $imageModel->setEventId($event_id);
+    $imageModel->setUploadUrl($upload_url);
+
+    $data = $imageModel->toArray();
+
+    $imageInserted = $this->db->create('images', $data);
+
+    if ($imageInserted)
+    {
+        setMessage('success', 'Image inserted successfully!');
+    }
+    else
+    {
+        setMessage('danger', 'Failed to insert image into database.');
     }
 
+    redirect('ImageController/index');
+}
+else
+{
+    setMessage('danger', 'Failed to upload image.');
+    redirect('ImageController/create');
+}
+
+            }
+        }
+        else
+        {
+            redirect('ImageController/create');
+        }
+    }
 }
 ?>

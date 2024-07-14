@@ -1,21 +1,28 @@
 <?php
-// load model and views
 
 class Controller
 {
     // Load Model
-    public function model($model) // Product
+    public function model($model)
     {
-        require_once '../app/models/' . $model . '.php';
-        return new $model();
+        $modelPath = '../app/models/' . $model . '.php';
+        if (file_exists($modelPath)) {
+            require_once $modelPath;
+            return new $model();
+        } else {
+            die('Model does not exist: ' . $modelPath);
+        }
     }
-    // Load views
+
+    // Load View
     public function view($view, $data = [])
     {
-        if (file_exists('../app/views/' . $view . '.php')) {
-            require_once('../app/views/' . $view . '.php');
+        $viewPath = '../app/views/' . $view . '.php';
+        if (file_exists($viewPath)) {
+            require_once $viewPath;
         } else {
-            die('View does not exist');
+            die('View does not exist: ' . $viewPath);
         }
     }
 }
+?>

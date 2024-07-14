@@ -2,22 +2,31 @@
 
 class EventModel
 {
-    private $id;
+    private $event_id;
+    private $category_id;
     private $title;
     private $description;
     private $venue;
     private $start_time;
     private $end_time;
-    private $category_id;
     private $date;
 
-    public function setId($id)
+    public function setEventId($event_id)
     {
-        $this->id = $id;
+        $this->event_id = $event_id;
     }
-    public function getId()
+    public function getEventId()
     {
-        return $this->id;
+        return $this->event_id;
+    } 
+
+    public function setCategoryId($category_id)
+    {
+        $this->category_id = $category_id;
+    }
+    public function getCategoryId()
+    {
+        return $this->category_id;
     }
 
     public function setTitle($title)
@@ -65,15 +74,6 @@ class EventModel
         return $this->end_time;
     }
 
-    public function setCategoryId($category_id)
-    {
-        $this->category_id = $category_id;
-    }
-    public function getCategoryId()
-    {
-        return $this->category_id;
-    }
-
     public function setDate($date)
     {
         $this->date = $date;
@@ -85,13 +85,13 @@ class EventModel
 
     public function toArray() {
         return [
-            "id" => $this->getId(),
+            "id" => $this->getEventId(),
+            "category_id" => $this->getCategoryID(),
             "title" => $this->getTitle(),
             "description" => $this->getDescription(),
             "venue" => $this->getVenue(),
             "start_time" => $this->getStartTime(),
             "end_time" => $this->getEndTime(),
-            "category_id" => $this->getCategoryID(),
             "date" => $this->getDate(),
         ];
     }

@@ -33,7 +33,7 @@
 
                             <div class="form-group">
                                 <label for="image">Upload Image</label>
-                                <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                                <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png, .gif" required>
                             </div>
                                 <button type="submit" class="btn btn-warning float-right">Update</button>
                             </form>

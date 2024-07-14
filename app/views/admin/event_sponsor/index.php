@@ -14,17 +14,29 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Event</th>
                         <th>Name</th>
-                        <th>Contact</th>
+                        <th>Contact Person</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Website</th>
+                        <th>Sponsorship Amount</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($data['event_sponsors'] as $event_sponsor): ?>
+                    <?php foreach ($data['sponsors'] as $event_sponsor): ?>
                         <tr>
                             <td><?php echo $event_sponsor['id']; ?></td>
+                            <td><?php echo $event_sponsor['event_id']; ?></td>
                             <td><?php echo $event_sponsor['name']; ?></td>
-                            <td><?php echo $event_sponsor['description']; ?></td>
+                            <td><?php echo $event_sponsor['contact_person']; ?></td>
+                            <td><?php echo $event_sponsor['email']; ?></td>
+                            <td><?php echo $event_sponsor['phone']; ?></td>
+                            <td><?php echo $event_sponsor['address']; ?></td>
+                            <td><?php echo $event_sponsor['website']; ?></td>
+                            <td><?php echo $event_sponsor['sponsorship_amount']; ?></td>
                             <td>
                                 <a href="<?php echo URLROOT; ?>/EventSponsorController/edit/<?php echo $event_sponsor['id']; ?>" class="btn btn-primary">Edit</a>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal_<?php echo $event_sponsor['id']; ?>">
@@ -36,7 +48,7 @@
                 </tbody>
             </table>
             <div class="clearfix">
-                <div class="hint-text">Showing <b><?php echo count($data['categories']); ?></b> entries</div>
+                <div class="hint-text">Showing <b><?php echo count($data['sponsors']); ?></b> entries</div>
                 <br>
                 <ul class="pagination">
                     <li class="page-item disabled"><a href="#">Previous</a></li>
@@ -51,7 +63,7 @@
 </div>
 
 <!-- Example modal in a loop -->
-<?php foreach ($data['event_sponsors'] as $event_sponsor): ?>
+<?php foreach ($data['sponsors'] as $event_sponsor): ?>
     <div class="modal fade" id="deleteModal_<?php echo $event_sponsor['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_<?php echo $event_sponsor['id']; ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

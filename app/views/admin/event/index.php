@@ -14,12 +14,12 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Category</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Venue</th>
                         <th>Start Time</th>
                         <th>End Time</th>
-                        <th>Category</th>
                         <th>Date</th>
                         <th>Actions</th>
                     </tr>
@@ -27,18 +27,18 @@
                 <tbody>
                     <?php foreach ($data['events'] as $event) { ?>
                         <tr>
-                            <td><?php echo isset($event['id']) ? $event['id'] : ''; ?></td>
+                            <td><?php echo isset($event['event_id']) ? $event['event_id'] : ''; ?></td>
+                            <td><?php echo isset($event['category_name']) ? $event['category_name'] : ''; ?></td>
                             <td><?php echo isset($event['title']) ? $event['title'] : ''; ?></td>
                             <td><?php echo isset($event['description']) ? $event['description'] : ''; ?></td>
                             <td><?php echo isset($event['venue']) ? $event['venue'] : ''; ?></td>
                             <td><?php echo isset($event['start_time']) ? $event['start_time'] : ''; ?></td>
                             <td><?php echo isset($event['end_time']) ? $event['end_time'] : ''; ?></td>
-                            <td><?php echo isset($event['category_name']) ? $event['category_name'] : ''; ?></td>
                             <td><?php echo isset($event['date']) ? $event['date'] : ''; ?></td>
                             <td>
-                                <a href="<?php echo URLROOT; ?>/EventController/edit/<?php echo isset($event['id']) ? $event['id'] : ''; ?>" class="btn btn-primary">Edit</a>
+                                <a href="<?php echo URLROOT; ?>/EventController/edit/<?php echo isset($event['event_id']) ? $event['event_id'] : ''; ?>" class="btn btn-primary">Edit</a>
                                 <!-- <a href="<?php echo URLROOT; ?>/EventController/destroy/<?php echo isset($event['id']) ? base64_encode($event['id']) : ''; ?>" class="btn btn-danger">Delete</a> -->
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal_<?php echo $event['id']; ?>">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal_<?php echo $event['event_id']; ?>">
                                     Delete
                                 </button>
                             </td>
@@ -63,21 +63,21 @@
 
 <!-- Example modal in a loop -->
 <?php foreach ($data['events'] as $event): ?>
-    <div class="modal fade" id="deleteModal_<?php echo $event['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_<?php echo $event['id']; ?>" aria-hidden="true">
+    <div class="modal fade" id="deleteModal_<?php echo $event['event_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_<?php echo $event['id']; ?>" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-warning" id="deleteModalLabel_<?php echo $event['id']; ?>">Warning!</h5>
+                    <h5 class="modal-title text-warning" id="deleteModalLabel_<?php echo $event['event_id']; ?>">Warning!</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete <?php echo $event['name']; ?>?
+                    Are you sure you want to delete <?php echo $event['title']; ?>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <a href="<?php echo URLROOT; ?>/EventController/destroy/<?php echo base64_encode($event['id']); ?>" class="btn btn-danger">Delete</a>
+                    <a href="<?php echo URLROOT; ?>/EventController/destroy/<?php echo base64_encode($event['event_id']); ?>" class="btn btn-danger">Delete</a>
                 </div>
             </div>
         </div>

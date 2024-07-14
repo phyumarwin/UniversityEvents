@@ -12,30 +12,63 @@ class EventSponsorController extends Controller
 
     public function index()
     {
-        $event_sponsor = $this->db->readAll('event_sponsors');
+        $event_sponsor = $this->db->readAll('sponsors');
         $data = [
-            'event_sponsors'=>$event_sponsor
+            'sponsors'=>$event_sponsor
         ];
         $this->view('admin/event_sponsor/index',$data);
     }
 
-    public function create(){
-        $this->view('admin/event_sponsor/create');
+    public function create() {
+        // Initialize data with default values
+        $data = [
+            'sponsors' => [
+                'event_id' => '',
+                'name' => '',
+                'contact_person' => '',
+                'email' => '',
+                'phone' => '',
+                'address' => '',
+                'website' => '',
+                'sponsorship_amount' => ''
+            ],
+            'events' => $this->db->readAll('events') 
+        ];
+        $this->view('admin/event_sponsor/create', $data);
     }
+    
 
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
+            $event_id = $_POST['event_id'];
+
             $name = $_POST['name'];
            
-            $contact = $_POST['contact'];
+            $contact_person = $_POST['contact_person'];
+
+            $email = $_POST['email'];
+
+            $phone = $_POST['phone'];
+
+            $address = $_POST['address'];
+
+            $website = $_POST['website'];
+
+            $sponsorship_amount = $_POST['sponsorship_amount'];
 
             $event_sponsor = new EventSponsorModel();
 
+            $event_sponsor->setEventId($event_id);
             $event_sponsor->setName($name);
-            $event_sponsor->setContact($contact);
+            $event_sponsor->setContactPerson($contact_person);
+            $event_sponsor->setEmail($email);
+            $event_sponsor->setPhone($phone);
+            $event_sponsor->setAddress($address);
+            $event_sponsor->setWebsite($website);
+            $event_sponsor->setSponsorshipAmount($sponsorship_amount);
 
-            $eventSponsorCreated = $this->db->create('event_sponsors', $event_sponsor->toArray());
+            $eventSponsorCreated = $this->db->create('sponsors', $event_sponsor->toArray());
             // echo($event_sponsorCreated);
             // exit;
             setMessage('success', 'Create Sponsor successful!');
@@ -45,12 +78,12 @@ class EventSponsorController extends Controller
 
     public function edit($id)
     {
-        $event_sponsor = $this->db->readAll('event_sponsors');
+        $event_sponsor = $this->db->readAll('sponsors');
 
-        $event_sponsor = $this->db->getById('event_sponsors', $id);
+        $event_sponsor = $this->db->getById('sponsors', $id);
 
         $data = [
-            'event_sponsors' => $event_sponsor
+            'sponsors' => $event_sponsor
         ];
 
         $this->view('/admin/event_sponsor/edit', $data);
@@ -59,21 +92,42 @@ class EventSponsorController extends Controller
     public function update(){
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             // Check if 'id' and other required fields are set in the POST request
-            if(isset($_POST['id']) && isset($_POST['name']) && isset($_POST['description'])){
+            if(isset($_POST['id']) && 
+                isset($_POST['event_id']) &&
+                isset($_POST['name']) &&
+                isset($_POST['contact_person']) &&
+                isset($_POST['email']) && 
+                isset($_POST['phone']) &&
+                isset($_POST['address']) &&
+                isset($_POST['website']) &&
+                isset($_POST['sponsorship_amount']))
+            {
                 $id = $_POST['id'];
+                $event_id = $_POST['event_id'];
                 $name = $_POST['name'];
-                $contact = $_POST['contact'];
+                $contact_person = $_POST['contact_person'];
+                $email = $_POST['email'];
+                $phone = $_POST['phone'];
+                $address = $_POST['address'];
+                $website = $_POST['website'];
+                $sponsorship_amount = $_POST ['sponsorship_amount'];
 
                 // Create a new EventSponsorModel instance and set its properties
                 $event_sponsor = new EventSponsorModel();
                 $event_sponsor->setId($id);
-                $event_sponsor->setName($name);
-                $event_sponsor->setContact($contact);
+                $event_sponsor->setId($event_id);
+                $event_sponsor->setId($name);
+                $event_sponsor->setId($contact_person);
+                $event_sponsor->setId($email); 
+                $event_sponsor->setId($phone); 
+                $event_sponsor->setId($address);
+                $event_sponsor->setId($website);
+                $event_sponsor->setId($sponsorship_amount);
                 // echo('ok');
                 // exit;
                 // Update the event_sponsor in the database
-                $updateEventSponsor = $this->db->update('event_sponsors', $event_sponsor->getId(), $event_sponsor->toArray());
-                // echo($updatEventSponsor);
+                $updateEventSponsor = $this->db->update('sponsors', $event_sponsor->getId(), $event_sponsor->toArray());
+                // echo($updateEventSponsor);
                 // exit;
                 if($updateEventSponsor) {
                     setMessage('success', 'Sponsor Updated Successfully');

@@ -36,8 +36,8 @@
                                     <textarea class="form-control" name="date" style="height:100px;" required></textarea>
                                 </div>
 
-                                <button type="reset" class="btn btn-danger" style="margin-left:800px">Reset</button>
-                                <button type="submit" class="btn btn-primary float-right" style="margin-right:50px">Add</button>
+                                <button type="reset" class="btn btn-danger" style="margin-left:900px">Reset</button>
+                                <button type="submit" class="btn btn-primary float-right" style="margin-right:10px">Add</button>
                             </form>
                         </div>
                     </div>

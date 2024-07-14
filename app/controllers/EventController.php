@@ -74,11 +74,11 @@ class EventController extends Controller
         }
     }
 
-    public function edit($id) 
+    public function edit($event_id) 
     {
         $categories = $this->db->readAll('categories');
 
-        $event = $this->db->getById('events', $id);
+        $event = $this->db->getById('events', $event_id);
         
         $data = [
             'categories' => $categories,
@@ -94,7 +94,7 @@ class EventController extends Controller
             // Check if 'id' and other required fields are set in the POST request
             if (isset($_POST['id']) && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['venue']) && isset($_POST['start_time']) && isset($_POST['end_time']) && isset($_POST['date']) && isset($_POST['category_id'])) {
                 // Retrieve form data
-                $id = $_POST['id'];
+                $event_id = $_POST['id'];
                 $title = $_POST['title'];
                 $description = $_POST['description'];
                 $venue = $_POST['venue'];
@@ -105,7 +105,6 @@ class EventController extends Controller
 
                 // Create a new EventModel instance and set its properties
                 $event = new EventModel();
-                $event->setId($id);
                 $event->setTitle($title);
                 $event->setDescription($description);
                 $event->setVenue($venue);
@@ -115,7 +114,10 @@ class EventController extends Controller
                 $event->setDate($date);
 
                 // Update the event in the database
-                $updateEvent = $this->db->update('events', $event->getId(), $event->toArray());
+                $updateEvent = $this->db->update('events', $event->getEventId(), $event->toArray());
+
+                var_dump("$updateEvent");
+                exit;
 
                 if ($updateEvent) {
                     setMessage('success', 'Event Updated Successfully');
@@ -140,10 +142,10 @@ class EventController extends Controller
         if ($id && is_numeric($id)) {
             // Create a new EventModel instance and set its ID
             $event = new EventModel();
-            $event->setId($id);
+            $event->setEventId($id);
 
             // Delete the event from the database
-            $isdestroy = $this->db->delete('events', $event->getId());
+            $isdestroy = $this->db->delete('events', $event->getEventId());
 
             if ($isdestroy) {
                 setMessage('success', 'Event Deleted Successfully');
