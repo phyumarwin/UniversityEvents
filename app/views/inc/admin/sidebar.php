@@ -23,7 +23,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
         aria-expanded="false" aria-controls="collapseCategory">
-        <i class="fas fa-fw fa-cog"></i>
+        <i class="fas fa-fw fa-list"></i>
         <span>Category</span>
     </a>
     <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory" data-parent="#accordionSidebar">
@@ -37,7 +37,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseActivities"
         aria-expanded="false" aria-controls="collapseActivities">
-        <i class="fas fa-fw fa-cog"></i>
+        <i class="fas fa-fw fa-calendar-alt"></i>
         <span>Events</span>
     </a>
     <div id="collapseActivities" class="collapse" aria-labelledby="headingActivities" data-parent="#accordionSidebar">
@@ -51,7 +51,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEventRegister"
         aria-expanded="false" aria-controls="collapseEventRegister">
-        <i class="fas fa-fw fa-cog"></i>
+        <i class="fas fa-fw fa-clipboard-list"></i>
         <span>Event Registers</span>
     </a>
     <div id="collapseEventRegister" class="collapse" aria-labelledby="headingEventRegister" data-parent="#accordionSidebar">
@@ -65,7 +65,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseImage"
         aria-expanded="false" aria-controls="collapseImage">
-        <i class="fas fa-fw fa-cog"></i>
+        <i class="fas fa-fw fa-images"></i>
         <span>Images</span>
     </a>
     <div id="collapseImage" class="collapse" aria-labelledby="headingImage" data-parent="#accordionSidebar">
@@ -79,7 +79,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSponsor"
         aria-expanded="false" aria-controls="collapseSponsor">
-        <i class="fas fa-fw fa-cog"></i>
+        <i class="fas fa-fw fa-handshake"></i>
         <span>Event Sponsors</span>
     </a>
     <div id="collapseSponsor" class="collapse" aria-labelledby="headingSponsor" data-parent="#accordionSidebar">
@@ -91,19 +91,15 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseSetting"
-        aria-expanded="false" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-cog"></i>
-        <span>About</span>
-    </a>
+    <a class="nav-link" href="<?php echo URLROOT; ?>/AboutController/about">
+        <i class="fas fa-fw fa-info-circle"></i>
+        <span>About</span></a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseSetting"
-        aria-expanded="false" aria-controls="collapseTwo">
+    <a class="nav-link" href="<?php echo URLROOT; ?>/SettingController/setting">
         <i class="fas fa-fw fa-cog"></i>
-        <span>Setting</span>
-    </a>
+        <span>Setting</span></a>
 </li>
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

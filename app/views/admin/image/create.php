@@ -29,7 +29,7 @@
                             <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png, .gif" required>
                         </div>
 
-                        <button type="reset" class="btn btn-danger" style="margin-left:900px">Reset</button>
+                        <button type="reset" class="btn btn-danger" style="margin-left:850px">Reset</button>
                         <button type="submit" class="btn btn-primary float-right" style="margin-right:10px">Add</button>
                     </form>
                 </div>
