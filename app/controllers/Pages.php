@@ -44,6 +44,15 @@ class Pages extends Controller
 
     public function home()
     {
-        $this->view('pages/dashboard');
+        $this->view('pages/home');
+    }
+
+    public function logout() {
+        // print_r("hello");
+        // unset($_SESSION['user_id']);
+        // unset($_SESSION['user_email']);
+        // unset($_SESSION['user_name']);
+        // session_destroy();
+        $this->view('pages/home');
     }
 }

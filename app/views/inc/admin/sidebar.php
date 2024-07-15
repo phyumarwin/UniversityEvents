@@ -35,12 +35,12 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseActivities"
-        aria-expanded="false" aria-controls="collapseActivities">
+    <a class="nav-link collapsed" href="<?php echo URLROOT; ?>/EventController/index" data-toggle="collapse" data-target="#collapseEvents"
+        aria-expanded="false" aria-controls="collapseEvents">
         <i class="fas fa-fw fa-calendar-alt"></i>
         <span>Events</span>
     </a>
-    <div id="collapseActivities" class="collapse" aria-labelledby="headingActivities" data-parent="#accordionSidebar">
+    <div id="collapseActivities" class="collapse" aria-labelledby="headingEvents" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo URLROOT; ?>/EventController/index">View All</a>
             <a class="collapse-item" href="<?php echo URLROOT; ?>/EventController/create">Add Event</a>
@@ -49,7 +49,7 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEventRegister"
+    <a class="nav-link collapsed" href="<?php echo URLROOT; ?>/EventRegisterController/index" data-toggle="collapse" data-target="#collapseEventRegister"
         aria-expanded="false" aria-controls="collapseEventRegister">
         <i class="fas fa-fw fa-clipboard-list"></i>
         <span>Event Registers</span>
@@ -63,7 +63,7 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseImage"
+    <a class="nav-link collapsed" href="<?php echo URLROOT; ?>/ImageController/index" data-toggle="collapse" data-target="#collapseImage"
         aria-expanded="false" aria-controls="collapseImage">
         <i class="fas fa-fw fa-images"></i>
         <span>Images</span>
@@ -77,7 +77,7 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSponsor"
+    <a class="nav-link collapsed" href="<?php echo URLROOT; ?>/EventSponsorController/index" data-toggle="collapse" data-target="#collapseSponsor"
         aria-expanded="false" aria-controls="collapseSponsor">
         <i class="fas fa-fw fa-handshake"></i>
         <span>Event Sponsors</span>

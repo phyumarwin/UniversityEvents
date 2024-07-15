@@ -184,7 +184,7 @@ public function login()
                 } elseif ($user['role'] == 0) {
                     // Regular user
                     setMessage('success', 'Login successful ! Welcome to My University.');
-                    redirect('pages/dashboard');
+                    redirect('pages/home');
                 } else {
                     setMessage('error', 'Invalid user role!');
                     redirect('pages/index');
@@ -211,6 +211,6 @@ public function login()
 
         //$this->db->unsetLogin($this->auth->getAuthId());
         $this->db->unsetLogin($id);
-        redirect('pages/login');
+        redirect('Pages/home');
     }
 }
