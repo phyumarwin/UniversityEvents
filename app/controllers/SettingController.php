@@ -13,4 +13,10 @@ class SettingController extends Controller
 
     }
 
+    public function UserSetting()
+    {
+        $this->view('pages/setting');
+
+    }
+
 }
