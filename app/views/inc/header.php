@@ -18,7 +18,12 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
+
+    <link rel="stylesheet" type="text/css" href="css/new_style.css">
+
     <title><?php echo SITENAME; ?></title>
 </head>
 <body>
+    <div id="wrapper">
+
 

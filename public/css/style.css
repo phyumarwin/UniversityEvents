@@ -324,7 +324,10 @@ input {
   border-bottom: 1px solid #999;
   padding: 6px 30px;
   font-family: Poppins;
-  box-sizing: border-box; }
+  /* box-sizing: border-box;  */
+}
+
+
   input::-webkit-input-placeholder {
     color: #999; }
   input::-moz-placeholder {
@@ -551,6 +554,13 @@ label.valid {
     -webkit-order: 2;
     -o-order: 2;
     -ms-order: 2; }
+
+    .full-width-image {
+      width: 100vw !important;
+      margin-left: calc((100vw - 100%) / -2) !important;
+      margin-right: calc((100vw - 100%) / -2) !important;
+    }
+    
 
   .signup-form, .signup-image, .signin-form, .signin-image {
     width: auto; }

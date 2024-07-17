@@ -159,4 +159,11 @@ class EventController extends Controller
         // Redirect to the event index page
         redirect('EventController/index');
     }
+
+    public function event()
+    {
+        $this->view('pages/events');
+
+    }
+
 }

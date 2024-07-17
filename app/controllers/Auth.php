@@ -32,6 +32,8 @@ class Auth extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Check user exists
             $email = $_POST['email'];
+            
+           
             $isUserExist = $this->db->columnFilter('users', 'email', $email);
             
             if ($isUserExist) {
@@ -39,7 +41,7 @@ class Auth extends Controller
                 setMessage('error', 'This email is already registered!');
                 redirect('pages/register');
             } else {
-                // print_r("bye");
+                
                 // Validate entries
                 $validation = new UserValidator($_POST);
                 $data = $validation->validateForm();
@@ -173,7 +175,7 @@ public function login()
         // echo '<pre>';
         // print_r($user);
         // echo '</pre>';
-        // exit; // Stop execution to check the output
+        exit; // Stop execution to check the output
         if ($user) {
             if ($user['password'] === $password) {
                 // Check the user role

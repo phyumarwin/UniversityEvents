@@ -12,7 +12,7 @@ class Pages extends Controller
     {
         // echo('ok');
         // exit;
-        $this->view('pages/login');
+        $this->view('pages/home');
     }
 
     public function login()
@@ -47,12 +47,12 @@ class Pages extends Controller
         $this->view('pages/home');
     }
 
-    public function logout() {
-        // print_r("hello");
-        // unset($_SESSION['user_id']);
-        // unset($_SESSION['user_email']);
-        // unset($_SESSION['user_name']);
-        // session_destroy();
-        $this->view('pages/home');
-    }
+    // public function logout() {
+    //     print_r("hello");
+    //     unset($_SESSION['user_id']);
+    //     unset($_SESSION['user_email']);
+    //     unset($_SESSION['user_name']);
+    //     session_destroy();
+    //     $this->view('pages/home');
+    // }
 }

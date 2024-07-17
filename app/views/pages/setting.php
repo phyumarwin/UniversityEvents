@@ -1,4 +1,5 @@
-<?php require_once APPROOT . '/views/inc/admin/header.php'; ?>
+<?php require_once APPROOT . '/views/inc/header.php' ?>
+<?php require_once APPROOT . '/views/inc/navbar.php' ?>
 <?php require APPROOT . '/views/components/auth_message.php'; ?>
 
 <div class="container-fluid">
