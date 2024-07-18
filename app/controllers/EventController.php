@@ -13,18 +13,24 @@ class EventController extends Controller
 
     public function index()
     {
-        // Fetch events with associated category titles
         $events = $this->db->readAll('vw_category_event');
 
-        // var_dump($events);
-
-        // Prepare data to be passed to the view
         $data = [
             'events' => $events
         ];
 
-        // Load the view to display the events
         $this->view('admin/event/index', $data);
+    }
+
+    public function getEventsByCategory($categoryId) 
+    {
+        $events = $this->db->readAll('vw_category_event');
+
+        $data = [
+            'events' => $events
+        ];
+
+        $this->view('pages/event/show', $data);
     }
 
     public function create()
@@ -158,12 +164,6 @@ class EventController extends Controller
 
         // Redirect to the event index page
         redirect('EventController/index');
-    }
-
-    public function event()
-    {
-        $this->view('pages/events');
-
     }
 
 }

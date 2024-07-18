@@ -19,7 +19,20 @@ class CategoryController extends Controller
         $this->view('admin/category/index',$data);
     }
 
-    public function create(){
+    public function toShowEvent()
+    {
+        $category = $this->db->readAll('categories');
+
+        // var_dump($category); 
+
+        $data = [
+            'categories'=>$category
+        ];
+        $this->view('pages/event/index',$data);    
+    }
+
+    public function create()
+    {
         $this->view('admin/category/create');
     }
 
@@ -56,7 +69,8 @@ class CategoryController extends Controller
         $this->view('/admin/category/edit', $data);
     }
 
-    public function update(){
+    public function update()
+    {
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             // Check if 'id' and other required fields are set in the POST request
             if(isset($_POST['id']) && isset($_POST['name']) && isset($_POST['description'])){
@@ -119,5 +133,7 @@ class CategoryController extends Controller
         // Redirect to the category index page
         redirect('categoryController/index');
     }
+
+    
 
 }
