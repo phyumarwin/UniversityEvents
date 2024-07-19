@@ -19,18 +19,6 @@ class CategoryController extends Controller
         $this->view('admin/category/index',$data);
     }
 
-    public function toShowEvent()
-    {
-        $category = $this->db->readAll('categories');
-
-        // var_dump($category); 
-
-        $data = [
-            'categories'=>$category
-        ];
-        $this->view('pages/event/index',$data);    
-    }
-
     public function create()
     {
         $this->view('admin/category/create');

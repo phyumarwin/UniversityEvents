@@ -47,7 +47,7 @@ h3, h5 {
             University events aim to foster community and engagement among students, 
             faculty, and staff. They offer opportunities for personal and professional 
             growth through networking and workshops.</h5>
-            <a data-mdb-ripple-init class="btn btn-outline-light btn-success" href="<?php echo URLROOT; ?>/CategoryController/toShowEvent" role="button">Register NOW</a>
+            <a data-mdb-ripple-init class="btn btn-outline-light btn-success" href="<?php echo URLROOT; ?>/EventController/toShowEvent" role="button">Register NOW</a>
           </div>
         </div>
       </div>
