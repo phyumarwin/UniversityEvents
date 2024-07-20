@@ -9,7 +9,7 @@
                 <?php foreach ($data['events'] as $event): ?>
                     <div class="col-4 mt-2">
                         <div class="card ml-5">
-                            <img src="<?php echo URLROOT; ?>/public/<?php echo $event['upload_url'] ?>" class="card-img-top" alt="Event Image">
+                            <img src="<?php echo URLROOT; ?>/public/<?php echo $event['upload_url'] ?>" class="card-img-top lazyload" alt="Event Image">
                             <div class="card-body">
                                 <h5 class="card-title truncate"><?php echo $event['title'] ?></h5>
                                 <p class="card-text truncate-multiline"><?php echo $event['description'] ?></p>
@@ -29,41 +29,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Register for Event</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Alert will be inserted here -->
-                    <div id="alertPlaceholder"></div>
-                    <form id="registerForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Type your Name" required/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="rollNO" id="rollNO" placeholder="Type your Roll NO" required/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Type your Phone" required/>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Type your Email" required/>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="registerBtn">Register</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <?php require_once APPROOT . '/views/inc/admin/footer.php'; ?>
@@ -72,23 +37,59 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<?php
+session_start();
+
+$_SESSION['user_id'] = 1; 
+?>
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register for Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Alert will be inserted here -->
+                <div id="alertPlaceholder"></div>
+                <form id="registerForm" action="<?php echo URLROOT; ?>/EventRegisterController/store" method="POST">
+                    <input type="hidden" name="event_id" id="event_id">
+                    <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Type your Name" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="roll_no" id="roll_no" placeholder="Type your Roll NO" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Type your Phone" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Type your Email" required/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Custom Script -->
 <script>
     $(document).ready(function() {
         $('#registerModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var title = button.data('title');
+            var eventId = button.data('id'); // Assuming you have event ID data attribute
             var modal = $(this);
             modal.find('.modal-title').text('Register for ' + title);
-        });
-
-        $('#registerBtn').click(function() {
-            const alertHtml = `
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Thank You Registration for This Event.</br>
-                    Please Wait Our Response!
-                </div>`;
-            $('#alertPlaceholder').html(alertHtml);
+            modal.find('#event_id').val(eventId);
         });
     });
 </script>

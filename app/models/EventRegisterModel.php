@@ -4,10 +4,11 @@ class EventRegisterModel
 {
     // Access Modifier = public, private, protected
     private $id;
-    private $name;
     private $event_id;
     private $user_id;
-    private $registration_date;
+    private $roll_no;
+    private $phone;
+    private $status;
 
     public function setId($id)
     {
@@ -16,15 +17,6 @@ class EventRegisterModel
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-    public function getName()
-    {
-        return $this->name;
     }
 
     public function setEventId($event_id)
@@ -45,22 +37,41 @@ class EventRegisterModel
         return $this->user_id;
     }
 
-    public function setRegistrationDate($registration_date)
+    public function setRollNo($roll_no)
     {
-        $this->registration_date = $registration_date;
+        $this->roll_no = $roll_no;
     }
-    public function getRegistrationDate()
+    public function getRollNo()
     {
-        return $this->registration_date;
+        return $this->roll_no;
     }
    
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
     public function toArray() {
         return [
             "id" => $this->getId(),
-            "name" => $this->getName(),
             "event_id" => $this->getEventId(),
             "user_id" => $this->getUserId(),
-            "registration_date" => $this->getRegistrationDate(),
+            "roll_no" => $this->getRollNo(),
+            "phone" => $this->getPhone(),
+            "status" => $this->getStatus()
         ];
     }
 }
