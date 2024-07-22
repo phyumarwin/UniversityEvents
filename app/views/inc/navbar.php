@@ -10,7 +10,7 @@
           <a class="nav-link" href="<?php echo URLROOT; ?>/Pages/home"  style="color: #fff;"><h6>Home</h6></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/EventController/toShowEvent"  style="color: #fff;"><h6>Events</h6></a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/EventRegisterController/toShowEvent"  style="color: #fff;"><h6>Events</h6></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URLROOT; ?>/Pages/about"  style="color: #fff;"><h6>About</h6></a>

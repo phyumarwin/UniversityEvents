@@ -77,20 +77,6 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="<?php echo URLROOT; ?>/EventSponsorController/index" data-toggle="collapse" data-target="#collapseSponsor"
-        aria-expanded="false" aria-controls="collapseSponsor">
-        <i class="fas fa-fw fa-handshake"></i>
-        <span>Event Sponsors</span>
-    </a>
-    <div id="collapseSponsor" class="collapse" aria-labelledby="headingSponsor" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo URLROOT; ?>/EventSponsorController/index">View All</a>
-            <a class="collapse-item" href="<?php echo URLROOT; ?>/EventSponsorController/create">Add Sponsor</a>
-        </div>
-    </div>
-</li>
-
-<li class="nav-item">
     <a class="nav-link" href="<?php echo URLROOT; ?>/AboutController/about">
         <i class="fas fa-fw fa-info-circle"></i>
         <span>About</span></a>

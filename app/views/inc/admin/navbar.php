@@ -173,7 +173,7 @@
                 <a class="nav-link dropdown-toggle" href="<?php echo URLROOT; ?>/Pages/logout" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                    <img class="img-profile rounded-circle" src="images/logo.png" alt="Logo">
+                    <img class="img-profile rounded-circle" src="<?php echo URLROOT; ?>/public/<?php echo $user['profile_im'] ?>" alt="Logo">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

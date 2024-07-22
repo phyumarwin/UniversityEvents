@@ -4,7 +4,7 @@
 <div class="main">
         <!-- Sing in  Form -->
     <section class="sign-in">
-        <div class="container">
+        <div class="container-fluid">
             <div class="signin-content">
                 <div class="signin-image">
                     <figure><img src="<?php echo URLROOT; ?>/images/1aa.png" alt="sing up image"></figure>
@@ -13,7 +13,7 @@
 
                 <div class="signin-form">
                     <h2 class="form-title">Login</h2>
-                    <form method="POST" class="register-form" id="login-form" action="<?php echo URLROOT; ?>/auth/login">
+                    <form method="POST" class="register-form" id="login-form" action="<?php echo URLROOT; ?>/pages/home">
                     <?php require APPROOT . '/views/components/auth_message.php'; ?>
                         <div class="form-group">
                             <label for="email"><i class="fa-solid fa-envelope"></i></label>
@@ -29,7 +29,7 @@
                             <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
                         </div>
                         <div class="form-group form-button">
-                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Login"/>
                         </div>
                     </form>
                     <div class="social-login">

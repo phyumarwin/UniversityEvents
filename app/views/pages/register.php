@@ -5,7 +5,7 @@
 
         <!-- Sign up form -->
         <section class="signup">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>

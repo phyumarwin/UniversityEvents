@@ -22,31 +22,6 @@ class EventController extends Controller
         $this->view('admin/event/index', $data);
     }
 
-    
-    public function toShowEvent()
-    {
-        $events = $this->db->readAll('vw_category_event');
-
-        // var_dump($events); 
-
-        $data = [
-            'events'=>$events
-        ];
-        
-        $this->view('pages/event/index', $data);    
-    }
-
-    public function getEventsByCategory($categoryId) 
-    {
-        $events = $this->db->readAll('vw_category_event');
-
-        $data = [
-            'events' => $events
-        ];
-
-        $this->view('pages/event/show', $data);
-    }
-
     public function create()
     {
         // Fetch all categories to populate the dropdown

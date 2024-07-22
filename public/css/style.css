@@ -665,9 +665,9 @@ label.valid {
 }
 
 /* Custom styles for card body */
-.card-body {
+/* .card-body {
   text-align: center;
-}
+} */
 
 .btn-group {
   display: flex;
