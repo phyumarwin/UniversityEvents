@@ -10,11 +10,24 @@ class EventRegisterController extends Controller
         $this->db = new Database();
     }
 
+    public function index()
+    {
+        $eventsRegisters = $this->db->readAll('vw_user_registers');
+
+        // var_dump($eventsRegisters); 
+
+        $data = [
+            'eventsRegister'=>$eventsRegisters
+        ];
+        
+        $this->view('admin/event_register/index', $data);    
+    }
+
     public function toShowEvent()
     {
         $eventsRegisters = $this->db->readAll('vw_category_event');
 
-        // var_dump($events); 
+        // var_dump($eventsRegisters); 
 
         $data = [
             'eventsRegister'=>$eventsRegisters
@@ -41,7 +54,7 @@ class EventRegisterController extends Controller
     
             header('Content-Type: application/json');
             if ($eventRegisterCreated) {
-                echo json_encode(['message' => 'Registration successful! Awaiting admin approval.']);
+                echo json_encode(['message' => 'Registration successful']);
             } else {
                 http_response_code(500);
                 echo json_encode(['message' => 'Registration failed!']);

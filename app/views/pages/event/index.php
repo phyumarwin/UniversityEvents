@@ -23,7 +23,7 @@
                                 </button>
                                 <?php if (isset($_SESSION['user_name'])): ?>
                                     <!-- User is logged in, show the button to open the modal -->
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registerModal" data-title="<?php echo $event['title']; ?>"
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registerModal" data-id="<?= $event['event_id'] ?>" data-title="<?php echo $event['title']; ?>"
                                         data-user-name="<?= $_SESSION['user_name'] ?? null; ?>" data-user-email="<?= $_SESSION['user_email'] ?? null ?>">
                                         Register
                                     </button>
@@ -112,10 +112,8 @@
                 <!-- Alert will be inserted here -->
                 <div id="alertPlaceholder"></div>
                 <form id="registerForm" method="POST">
-                    <!-- <input type="hidden" name="event_id" data-id="event_id">
-                    <input type="hidden" name="user_name" data-user-name="<?= "Thu zar"?>">
-                    <input type="hidden" name="user_email" id="event_id">
-                    <input type="hidden" name="user_id" id="user_id" value="<?= 3 ?>"> -->
+                    <input type="hidden" name="event_id" id="event_id">
+                    <input type="hidden" name="user_id" value="<?= $_SESSION['user_id']?>"> 
                     <div class="form-group">
                         <input type="text" class="form-control" name="name" id="name" required readonly/>
                     </div>
@@ -160,25 +158,29 @@ $(document).ready(function() {
         modal.find('#event_id').val(eventId);
     });
 
+    $('#registerModal').on('hidden.bs.modal', function() {
+        // Clear the success message and specific fields when the modal closes
+        $('#alertPlaceholder').html('');
+        $('#phone').val('');
+        $('#roll_no').val('');
+    });
+
     $('#registerForm').on('submit', function(event) {
         event.preventDefault();
         var formData = $(this).serialize();
-        alert(formData);
 
         $.ajax({
             url: '<?php echo URLROOT; ?>/EventRegisterController/store',
             method: 'POST',
             data: formData,
             success: function(response) {
-                alert("hello");
                 // Display success message
-                // $('#alertPlaceholder').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
-                // // Clear form fields
-                // $('#registerForm')[0].reset();
-                // // Close modal after a delay
-                // setTimeout(function() {
-                //     $('#registerModal').modal('hide');
-                // }, 2000);
+                $('#alertPlaceholder').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
+                
+                // Close modal after a delay
+                setTimeout(function() {
+                    $('#registerModal').modal('hide');
+                }, 2000);
             },
             error: function(xhr, status, error) {
                 // Display error message
