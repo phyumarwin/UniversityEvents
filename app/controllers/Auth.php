@@ -1,5 +1,5 @@
 <?php
-
+require_once APPROOT . '/views/inc/header.php';
 //for user login and logout
 
 class Auth extends Controller
@@ -172,12 +172,13 @@ public function login()
         $password = base64_encode($_POST['password']); // Encode password for comparison
 
         $user = $this->db->columnFilter('users', 'email', $email);
-        // echo '<pre>';
-        // print_r($user);
-        // echo '</pre>';
-        exit; // Stop execution to check the output
+        
         if ($user) {
             if ($user['password'] === $password) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['name'];
+                $_SESSION['user_email'] = $user['email'];
+               
                 // Check the user role
                 if ($user['role'] == 1) {
                     // Admin user
@@ -206,13 +207,10 @@ public function login()
 
 
 
-    function logout($id)
+    function logout()
     {
-        // session_start();
-        // $this->db->unsetLogin(base64_decode($_SESSION['id']));
-
-        //$this->db->unsetLogin($this->auth->getAuthId());
-        $this->db->unsetLogin($id);
+        $this->db->unsetLogin($_SESSION['user_id']);
+        session_destroy();
         redirect('Pages/home');
     }
 }

@@ -13,7 +13,7 @@
 
                 <div class="signin-form">
                     <h2 class="form-title">Login</h2>
-                    <form method="POST" class="register-form" id="login-form" action="<?php echo URLROOT; ?>/pages/home">
+                    <form method="POST" class="register-form" id="login-form" action="<?php echo URLROOT; ?>/Auth/login">
                     <?php require APPROOT . '/views/components/auth_message.php'; ?>
                         <div class="form-group">
                             <label for="email"><i class="fa-solid fa-envelope"></i></label>

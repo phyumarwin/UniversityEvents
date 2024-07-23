@@ -8,7 +8,6 @@ class EventRegisterModel
     private $user_id;
     private $roll_no;
     private $phone;
-    private $status;
     private $date;
 
     public function setId($id)
@@ -56,15 +55,6 @@ class EventRegisterModel
         return $this->phone;
     }
 
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
     public function setDate($date)
     {
         $this->date = $date;
@@ -81,7 +71,6 @@ class EventRegisterModel
             "user_id" => $this->getUserId(),
             "roll_no" => $this->getRollNo(),
             "phone" => $this->getPhone(),
-            "status" => $this->getStatus(),
             "date" => $this->getDate()
         ];
     }

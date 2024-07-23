@@ -13,17 +13,27 @@
                             <div class="card-body">
                                 <h5 class="card-title truncate"><?php echo $event['title'] ?></h5>
                                 <p class="card-text truncate-multiline"><?php echo $event['description'] ?></p>
-                                <button type="button" class="btn btn-custom-primary" data-toggle="modal" data-target="#viewAllModal" 
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewAllModal" 
                                     data-title="<?php echo $event['title']; ?>" 
                                     data-description="<?php echo $event['description']; ?>" 
                                     data-venue="<?php echo $event['venue']; ?>" 
                                     data-start_time="<?php echo $event['start_time']; ?>"
                                     data-end_time="<?php echo $event['end_time']; ?>">
-                                    View All
+                                    Details
                                 </button>
-                                <button type="button" class="btn btn-custom-primary" data-toggle="modal" data-target="#registerModal" data-title="<?php echo $event['title']; ?>">
-                                    Register
-                                </button>
+                                <?php if (isset($_SESSION['user_name'])): ?>
+                                    <!-- User is logged in, show the button to open the modal -->
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registerModal" data-title="<?php echo $event['title']; ?>"
+                                        data-user-name="<?= $_SESSION['user_name'] ?? null; ?>" data-user-email="<?= $_SESSION['user_email'] ?? null ?>">
+                                        Register
+                                    </button>
+                                <?php else: ?>
+                                    <!-- User is not logged in, show a button to redirect to the login page -->
+                                    <button type="button" class="btn btn-primary btn-sm" id="redirectToLogin">
+                                        Register
+                                    </button>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                     </div>
@@ -83,8 +93,10 @@
 
 
 <!-- jQuery and Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ -->
+
 
 <!-- Modal -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -100,19 +112,21 @@
                 <!-- Alert will be inserted here -->
                 <div id="alertPlaceholder"></div>
                 <form id="registerForm" method="POST">
-                    <input type="hidden" name="event_id" id="event_id">
-                    <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                    <!-- <input type="hidden" name="event_id" data-id="event_id">
+                    <input type="hidden" name="user_name" data-user-name="<?= "Thu zar"?>">
+                    <input type="hidden" name="user_email" id="event_id">
+                    <input type="hidden" name="user_id" id="user_id" value="<?= 3 ?>"> -->
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Type your Name" required/>
+                        <input type="text" class="form-control" name="name" id="name" required readonly/>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="roll_no" id="roll_no" placeholder="Type your Roll NO" required/>
+                        <input type="email" class="form-control" name="email" id="email" required readonly/>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Type your Phone" required/>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter your Phone" required/>
                     </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Type your Email" required/>
+                    <div class="form-group">                        
+                        <input type="text" class="form-control" name="roll_no" id="roll_no" placeholder="Enter your Roll NO" required/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -124,36 +138,47 @@
     </div>
 </div>
 
-
-<!-- Custom Script -->
 <script>
 $(document).ready(function() {
+    var redirectToLoginButton = document.getElementById('redirectToLogin');
+    if (redirectToLoginButton) {
+        redirectToLoginButton.addEventListener('click', function() {
+            window.location.href = '<?php echo URLROOT; ?>/Auth/login'; // Change to your login page URL
+        });
+    }
+
     $('#registerModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var title = button.data('title');
+        var userName = button.data('user-name');
+        var userEmail = button.data('user-email');
         var eventId = button.data('id'); 
         var modal = $(this);
         modal.find('.modal-title').text('Register for ' + title);
+        modal.find('#name').val(userName);
+        modal.find('#email').val(userEmail);
         modal.find('#event_id').val(eventId);
     });
 
     $('#registerForm').on('submit', function(event) {
         event.preventDefault();
         var formData = $(this).serialize();
+        alert(formData);
 
         $.ajax({
             url: '<?php echo URLROOT; ?>/EventRegisterController/store',
             method: 'POST',
             data: formData,
             success: function(response) {
+                alert("hello");
                 // Display success message
-                $('#alertPlaceholder').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
-                // Clear form fields
-                $('#registerForm')[0].reset();
-                // Close modal after a delay
-                setTimeout(function() {
-                    $('#registerModal').modal('hide');
-                }, 2000);
+                // $('#alertPlaceholder').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
+                // // Clear form fields
+                // $('#registerForm')[0].reset();
+                // // Close modal after a delay
+                // setTimeout(function() {
+                //     $('#registerModal').modal('hide');
+                // }, 2000);
             },
             error: function(xhr, status, error) {
                 // Display error message

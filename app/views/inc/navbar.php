@@ -19,9 +19,31 @@
           <a class="nav-link" href="<?php echo URLROOT; ?>/SettingController/UserSetting"  style="color: #fff;"><h6>Setting</h6></a>
         </li>
         <li class="nav-item">
+        <?php if (isset($_SESSION['user_name'])): ?>
+          <!-- href="<?php echo URLROOT; ?>/Auth/login" -->
+          <a href="#" class="nav-link dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-white"><?= $_SESSION['user_name'] ?></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" id="logoutLink">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+              </a>
+          </div>
+          <?php else: ?>
           <a class="nav-link" href="<?php echo URLROOT; ?>/pages/login"  style="color: #fff;"><h6>Login</h6></a>
+        <?php endif; ?>
         </li>
+
       </ul>
     </div>
   </nav>
 </div>
+
+<script>
+document.getElementById('logoutLink').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    window.location.href = "<?php echo URLROOT; ?>/Auth/logout"; // Redirect to login page
+});
+</script>
