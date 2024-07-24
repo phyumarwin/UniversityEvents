@@ -171,6 +171,16 @@ class Database
         return ($success) ? $row : [];
     }
 
+    public function getTotalCount($table)
+    {
+        $sql = 'SELECT COUNT(*) as total FROM ' . $table;
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute();
+        $result = $stm->fetch(PDO::FETCH_ASSOC);
+ 
+     
+        return $result['total'];
+    }
     // public function getByCategoryId($table, $column)
     // {
     //     $stm = $this->pdo->prepare('SELECT * FROM ' . $table . ' WHERE name =:column');

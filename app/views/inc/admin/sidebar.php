@@ -40,7 +40,7 @@
         <i class="fas fa-fw fa-calendar-alt"></i>
         <span>Events</span>
     </a>
-    <div id="collapseActivities" class="collapse" aria-labelledby="headingEvents" data-parent="#accordionSidebar">
+    <div id="collapseEvents" class="collapse" aria-labelledby="headingEvents" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo URLROOT; ?>/EventController/index">View All</a>
             <a class="collapse-item" href="<?php echo URLROOT; ?>/EventController/create">Add Event</a>

@@ -39,7 +39,7 @@ class Auth extends Controller
             if ($isUserExist) {
                 print_r("hello");
                 setMessage('error', 'This email is already registered!');
-                redirect('pages/register');
+                redirect('pages/login');
             } else {
                 
                 // Validate entries

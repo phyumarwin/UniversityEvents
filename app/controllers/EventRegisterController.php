@@ -54,29 +54,23 @@ class EventRegisterController extends Controller
             // Ensure the timezone is set correctly
             date_default_timezone_set('Asia/Yangon');
     
-            // Fetch event end_time and current date/time
+            // Fetch event start_time and current date/time
+            $eventStartTime = new DateTime($event['start_time']);
             $eventEndTime = new DateTime($event['end_time']);
             $currentDateTime = new DateTime();
     
-            // Debug: Log event end_time and current date/time
+            // Debug: Log event start_time, end_time and current date/time
+            error_log("Event Start Time: " . $eventStartTime->format('Y-m-d H:i:s'));
             error_log("Event End Time: " . $eventEndTime->format('Y-m-d H:i:s'));
             error_log("Current Date Time: " . $currentDateTime->format('Y-m-d H:i:s'));
     
             // Check if the event has expired
-            if ($eventEndTime < $currentDateTime) {
+            if ($eventStartTime < $currentDateTime) {
                 http_response_code(400);
                 echo json_encode(['message' => 'Event has already expired!']);
                 return;
             }
-    
-            // Check if the user has already registered for the same event
-            $existingRegistration = $this->db->readAll('event_registers', ['event_id' => $event_id, 'user_id' => $user_id]);
-            if ($existingRegistration) {
-                header('Content-Type: application/json');
-                echo json_encode(['message' => 'You have already registered for this event!']);
-                return;
-            }
-    
+        
             // Check if the user has already registered for an event with overlapping time
             $existingRegistrations = $this->db->readAll('event_registers', ['user_id' => $user_id]);
             foreach ($existingRegistrations as $registration) {
@@ -85,7 +79,8 @@ class EventRegisterController extends Controller
                     $existingEventStartTime = new DateTime($existingEvent['start_time']);
                     $existingEventEndTime = new DateTime($existingEvent['end_time']);
                     
-                    if (($event['start_time'] < $existingEventEndTime) && ($event['end_time'] > $existingEventStartTime)) {
+                    // Check for overlapping time
+                    if (($eventStartTime < $existingEventEndTime) && ($eventEndTime > $existingEventStartTime)) {
                         // Send alert if the event times overlap
                         header('Content-Type: application/json');
                         echo json_encode(['message' => 'You have already registered for an event that overlaps in time!']);
@@ -101,6 +96,7 @@ class EventRegisterController extends Controller
             $event_register->setRollNo($roll_no);
             $event_register->setPhone($phone);
     
+            // Insert the registration into the database
             $eventRegisterCreated = $this->db->create('event_registers', $event_register->toArray());
     
             header('Content-Type: application/json');
@@ -113,5 +109,7 @@ class EventRegisterController extends Controller
         }
     }
     
-    
+
 }
+    
+    

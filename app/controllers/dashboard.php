@@ -12,12 +12,26 @@ class Dashboard extends Controller
 
     public function admin()
     {
-        $event_registers = $this->db->readAll('vw_user_registers');
-        $data = [
-            'event_registers' => $event_registers
-        ];
+        $totalEvents= $this->db->getTotalCount('events');
+        $totalCategories = $this->db->getTotalCount('categories');
+        $totalUsers = $this->db->getTotalCount("users");
+    
+            $data = [
+                'totalEvents' => $totalEvents,
+                'totalCategories' => $totalCategories,
+                'totalUsers' => $totalUsers,
+            ];
         $this->view('admin/dashboard', $data);
+
     }
+    // public function admin()
+    // {
+    //     $event_registers = $this->db->readAll('vw_user_registers');
+    //     $data = [
+    //         'event_registers' => $event_registers
+    //     ];
+    //     $this->view('admin/dashboard', $data);
+    // }
 
     public function approve($id)
     {
